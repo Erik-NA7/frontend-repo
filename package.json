@@ -9,16 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.2.1",
+    "@reduxjs/toolkit": "^2.5.0",
+    "firebase": "^11.1.0",
+    "js-cookie": "^3.0.5",
+    "next": "14.2.21",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.21"
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.21"
+    "eslint-config-next": "14.2.21",
+    "typescript": "^5"
   }
 }

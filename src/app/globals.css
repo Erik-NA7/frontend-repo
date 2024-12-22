@@ -5,8 +5,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #0a0a0a;
+    --background: #ededed;
   }
 }
 
@@ -14,6 +14,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  color: var(--foreground);
+  background-color: var(--background);
 }
 
 body {
@@ -28,6 +30,8 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  all: unset;
+  display: revert;
 }
 
 a {
