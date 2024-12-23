@@ -1,7 +1,7 @@
 import { auth } from "@/config/firebaseConfig";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import Cookies from "js-cookie";
-import { UserData } from "@/entities/user";
+import { User } from "@/entities/user";
 
 export const firebaseLogin = async (email: string, password: string) => {
   const credential = await signInWithEmailAndPassword(auth, email, password);
@@ -18,7 +18,7 @@ export const getUserData = async() => {
   return data
 }
 
-export const updateUserData = async(data: UserData) => {
+export const updateUserData = async(data: User) => {
   const res = await fetch('api/users', {
     method: 'PUT',
     headers: {

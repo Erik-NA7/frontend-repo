@@ -11,9 +11,11 @@ import {
 import { FormEvent, useState } from "react";
 import { firebaseLogin } from "@/controller/userController";
 import Cookies from "js-cookie";
-import { User } from "@/entities/user";
 import { navigate } from "@/app/components/navigate";
 
+interface AuthUser {
+  accessToken: string;
+}
 
 export default function Login() {
   
@@ -28,7 +30,7 @@ export default function Login() {
       setError('Both email and password are required.');
     } else {
       setError('');
-      const loginUser = await firebaseLogin(email, password) as unknown as User;
+      const loginUser = await firebaseLogin(email, password) as unknown as AuthUser;
       Cookies.set('accessToken', loginUser.accessToken);
       navigate("/");
     }
