@@ -12,7 +12,7 @@ import { FormEvent, useState } from "react";
 import { firebaseLogin } from "@/controller/userController";
 import Cookies from "js-cookie";
 import { User } from "@/entities/user";
-import { navigate } from "./action";
+import { navigate } from "@/app/components/navigate";
 
 
 export default function Login() {
@@ -30,7 +30,7 @@ export default function Login() {
       setError('');
       const loginUser = await firebaseLogin(email, password) as unknown as User;
       Cookies.set('accessToken', loginUser.accessToken);
-      navigate();
+      navigate("/");
     }
   };
   

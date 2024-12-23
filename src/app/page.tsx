@@ -1,26 +1,26 @@
 "use client";
 
-import styles from "../page.module.css";
+import styles from "./page.module.css";
 import {
   Box,
   FormLabel,
   TextField,
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Typography,
 } from "@mui/material";
-import {  } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getUserData, updateUserData } from "@/controller/userController";
-import { navigate } from "./action";
+import { navigate } from "./components/navigate";
 import { logout } from "@/controller/userController";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserRequest, updateUserFailure, updateUserSuccess } from "@/store/actions";
 import type { AppDispatch, RootState } from '@/store/store';
 import ReduxProvider from "./Provider";
+import ActionButton from "./components/ActionButton";
+import Cookies from "js-cookie";
 
 function Profile() {
 
@@ -65,14 +65,21 @@ function Profile() {
     dispatch(updateUserSuccess());
   }
 
+  useEffect(() => {
+    const accessToken = Cookies.get('accessToken');
+    if (!accessToken) {
+      navigate('/login');
+    }
+  }, []);
+  
   return (
     <div className={styles.page}>
       <main className={styles.main} style={{ position: 'relative'}}>
-        <Button
-          onClick={() => getData()}
-          variant="contained"
-        >Get Data
-        </Button>
+        <ActionButton
+          handler={() => getData()}
+        >
+          Get Data
+        </ActionButton>
         { email &&
           <Box
             className={styles.login}
@@ -84,7 +91,7 @@ function Profile() {
               margin: 'auto',
             }}
           >
-           <FormLabel>Email</FormLabel>
+            <FormLabel>Email</FormLabel>
             <TextField
               autoFocus
               className={styles.loginInput}
@@ -95,7 +102,6 @@ function Profile() {
               margin="normal"
               type="email"
               aria-label="email"
-              // helperText={error && 'Please enter a valid email.'}
             />
             <FormLabel>Username</FormLabel>
             <TextField
@@ -107,13 +113,12 @@ function Profile() {
               margin="normal"
               type="text"
               aria-label="username"
-              // helperText={error && 'Password is required.'}
             />
-            <Button
-              onClick={() => updateData()}
-              variant="contained"
-            >Update Data
-            </Button>
+            <ActionButton
+              handler={() => updateData()}
+            >
+              Update Data
+            </ActionButton>
             <div style={{ height: '10px' }}>
               <Typography>{ loading ? 'Updating...' : '' }</Typography>
               <Typography color="success.main">{ success && 'Updated' }</Typography>
@@ -128,10 +133,16 @@ function Profile() {
           You have to login again
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() =>navigate()} color="primary" variant="contained">
+          <ActionButton
+            handler={() => handleClose()}
+          >
+            Cancel
+            </ActionButton>
+          <ActionButton
+            handler={() => navigate('/login')}
+          >
             Login
-          </Button>
+            </ActionButton>
         </DialogActions>
       </Dialog>
     </div>
